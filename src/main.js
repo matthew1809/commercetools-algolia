@@ -5,6 +5,7 @@ import 'whatwg-fetch';
 import VueScrollTo from 'vue-scrollto';
 import Vuelidate from 'vuelidate';
 import ProductZoomer from 'vue-product-zoomer';
+import InstantSearch from 'vue-instantsearch';
 import App from './App/index.vue';
 import router from './router';
 import store from './store';
@@ -13,6 +14,9 @@ import i18n from './i18n/i18n';
 import sunriseConfig from '../sunrise.config';
 import './registerServiceWorker';
 import './assets/scss/main.scss';
+
+// Algolia import and plugin
+Vue.use(InstantSearch);
 
 Vue.config.productionTip = false;
 
@@ -38,7 +42,6 @@ Vue.directive('vpshow', {
   },
   /* eslint-enable no-param-reassign */
 });
-
 
 Vue.prototype.$sunrise = sunriseConfig;
 

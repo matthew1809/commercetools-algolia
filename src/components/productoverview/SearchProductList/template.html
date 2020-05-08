@@ -1,0 +1,18 @@
+
+<div id="pop-product-list" class="row">
+        <div v-for="item in searchResults" :key="item.objectID" class="col-xs-12 col-sm-6 col-md-4">
+            <div class="shop-item">
+                <div class="pop-product-image">
+             <img class="img-lazy"
+                  :src="item.images"
+                  :alt="item.sku"/>
+           </div>
+                <div class="pop-product-name">
+                    <span data-test="product-thumbnail-name" class="name-headline">
+                    {{ item["name.en"] }}
+                    </span>
+                </div>
+            </div>
+       
+        </div>
+</div>

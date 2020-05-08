@@ -57,13 +57,16 @@
         </router-link>
       </div>
       <div class="col-sm-4">
-        <form
+        <Search 
+        class="search-box text-right"
+        />
+        <!-- <form
           id="form-search"
           action="#"
           class="search-box text-right"
           v-on:submit.prevent="search"
-        >
-          <input
+        > -->
+          <!-- <input
             name="q"
             type="search"
             :placeholder="$t('search')"
@@ -71,12 +74,12 @@
             class="search-field"
             v-model="searchText"
             required
-          />
-          <button type="submit" id="search-button" class="search-button">
+          /> -->
+          <!-- <button type="submit" id="search-button" class="search-button">
             <span class="icon-font icon-magnifying-glass"></span>
             <span class="sr-only">{{ $t('search') }}</span>
-          </button>
-        </form>
+          </button> -->
+        <!-- </form> -->
       </div>
     </div>
     <div class="row">

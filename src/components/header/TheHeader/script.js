@@ -2,6 +2,7 @@ import LocationSelector from '../LocationSelector/index.vue';
 import CategoriesMenu from '../CategoriesMenu/index.vue';
 import LoginButton from '../LoginButton/index.vue';
 import MiniCart from '../MiniCart/index.vue';
+import Search from '../../search/index.vue';
 
 export default {
   components: {
@@ -9,6 +10,7 @@ export default {
     CategoriesMenu,
     LoginButton,
     MiniCart,
+    Search,
   },
   data() {
     return {

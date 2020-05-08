@@ -6,18 +6,13 @@ module.exports = {
     jquery: true,
   },
 
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-  ],
+  extends: ['plugin:vue/essential', '@vue/airbnb'],
 
   rules: {
     'no-console': 'error',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-underscore-dangle': ['error', { 'allow': ['__typename'] }],
-    'max-len': [
-      'error', { code: 120 },
-    ],
+    'no-underscore-dangle': ['error', { allow: ['__typename'] }],
+    'max-len': ['error', { code: 120 }],
     'no-param-reassign': [
       'error',
       {
@@ -49,7 +44,5 @@ module.exports = {
     parser: 'babel-eslint',
   },
 
-  plugins: [
-    'graphql',
-  ],
-};
+  plugins: ['graphql'],
+}

@@ -37,8 +37,10 @@
             <!--{{> catalog/pop/filters-sidebar-mobile}}-->
           </div>
           <!-- End mobile version -->
-          <ProductList :categorySlug="categorySlug"
-                       :page="page" />
+          <!-- <ProductList :categorySlug="categorySlug"
+                       :page="page" /> -->
+                       <SearchProductList :categorySlug="categorySlug"
+                       :page="page" /> 
         </div>
       </div>
     </div>

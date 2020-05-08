@@ -11,6 +11,7 @@ const SET_CURRENCY = 'SET_CURRENCY';
 const SET_AUTHENTICATED = 'SET_AUTHENTICATED';
 const SET_TOKEN_INFO = 'SET_TOKEN_INFO';
 const SET_MINI_CART_OPEN = 'SET_MINI_CART_OPEN';
+const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 
 const availableLocales = Object.keys(sunriseConfig.languages);
 const availableCountries = Object.keys(sunriseConfig.countries);
@@ -26,14 +27,19 @@ const clearMiniCartTimeout = (state) => {
 };
 
 const setMiniCartTimeout = (commit, state, timeout) => {
-  state.miniCartCloseTimer = setTimeout(() => commit(SET_MINI_CART_OPEN, false), timeout);
+  state.miniCartCloseTimer = setTimeout(
+    () => commit(SET_MINI_CART_OPEN, false),
+    timeout,
+  );
 };
 
 export default new Vuex.Store({
-  plugins: [createPersistedState({
-    key: 'session',
-    paths: ['locale', 'country', 'currency', 'tokenInfo', 'authenticated'],
-  })],
+  plugins: [
+    createPersistedState({
+      key: 'session',
+      paths: ['locale', 'country', 'currency', 'tokenInfo', 'authenticated'],
+    }),
+  ],
 
   state: {
     locale: fallbackLocale,
@@ -43,9 +49,13 @@ export default new Vuex.Store({
     authenticated: false,
     miniCartOpen: false,
     miniCartCloseTimer: 0,
+    searchResults: [],
   },
 
   actions: {
+    setSearchResults: ({ commit }, searchResults) => {
+      commit(SET_SEARCH_RESULTS, searchResults);
+    },
     setLocale: ({ commit }, locale) => {
       if (availableLocales.includes(locale)) commit(SET_LOCALE, locale);
     },
@@ -85,6 +95,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    [SET_SEARCH_RESULTS](state, searchResults) {
+      state.searchResults = searchResults;
+    },
+
     [SET_COUNTRY](state, country) {
       state.country = country;
     },
