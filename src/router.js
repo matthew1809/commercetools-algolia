@@ -10,6 +10,7 @@ import TheCheckoutHeader from './components/header/TheCheckoutHeader/index.vue';
 import TheCheckoutFooter from './components/footer/TheCheckoutFooter/index.vue';
 import PageHome from './components/home/PageHome/index.vue';
 import PageProductOverview from './components/productoverview/PageProductOverview/index.vue';
+import SearchProductList from './components/productoverview/SearchProductList/index.vue';
 import PageLogin from './components/login/PageLogin/index.vue';
 import ForgotPassword from './components/login/ForgotPassword/index.vue';
 import ResetPassword from './components/login/ResetPassword/index.vue';
@@ -30,7 +31,6 @@ import StepPaymentMethodForm from './components/checkout/StepPaymentMethodForm/i
 import StepPlaceOrderForm from './components/checkout/StepPlaceOrderForm/index.vue';
 import { pageFromRoute } from './components/common/shared';
 import Root from './components/root/index.vue';
-
 
 Vue.use(Router);
 
@@ -103,6 +103,24 @@ const router = new Router({
             footer: false,
           },
         },
+
+        {
+          path: 'products/',
+          name: 'productsSearch',
+          components: {
+            default: SearchProductList,
+            header: TheHeader,
+            footer: TheFooter,
+          },
+          props: {
+            default: route => ({
+              ...pageFromRoute(route),
+              categorySlug: route.params.categorySlug,
+            }),
+            header: true,
+            footer: false,
+          },
+        },
         {
           path: 'user',
           meta: { requiresAuth },
@@ -113,7 +131,9 @@ const router = new Router({
           },
           children: [
             {
-              path: 'order/:id', name: 'order', component: TabOrderDetail,
+              path: 'order/:id',
+              name: 'order',
+              component: TabOrderDetail,
             },
             {
               path: 'orders/:page?',
@@ -121,10 +141,15 @@ const router = new Router({
               component: TabOrderList,
             },
             {
-              path: 'account', alias: '', name: 'user', component: TabPersonalDetails,
+              path: 'account',
+              alias: '',
+              name: 'user',
+              component: TabPersonalDetails,
             },
             {
-              path: 'changepassword', name: 'changepassword', component: TabChangePassword,
+              path: 'changepassword',
+              name: 'changepassword',
+              component: TabChangePassword,
             },
           ],
         },
@@ -165,21 +190,32 @@ const router = new Router({
               component: StepWithOverview,
               children: [
                 {
-                  path: 'payment', name: 'checkout-payment-method', component: StepPaymentMethodForm,
+                  path: 'payment',
+                  name: 'checkout-payment-method',
+                  component: StepPaymentMethodForm,
                 },
                 {
-                  path: 'shipping', name: 'checkout-shipping-method', component: StepShippingMethodForm,
+                  path: 'shipping',
+                  name: 'checkout-shipping-method',
+                  component: StepShippingMethodForm,
                 },
                 {
-                  path: 'billing', name: 'checkout-billing-address', component: StepBillingAddressForm,
+                  path: 'billing',
+                  name: 'checkout-billing-address',
+                  component: StepBillingAddressForm,
                 },
                 {
-                  path: 'address', alias: '', name: 'checkout', component: StepShippingAddressForm,
+                  path: 'address',
+                  alias: '',
+                  name: 'checkout',
+                  component: StepShippingAddressForm,
                 },
               ],
             },
             {
-              path: 'order', name: 'checkout-order', component: StepPlaceOrderForm,
+              path: 'order',
+              name: 'checkout-order',
+              component: StepPlaceOrderForm,
             },
           ],
         },
@@ -197,7 +233,9 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const routeRequiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const routeRequiresAuth = to.matched.some(
+    record => record.meta.requiresAuth,
+  );
   if (routeRequiresAuth && !store.state.authenticated) {
     next({ name: 'login' });
   } else {
@@ -206,10 +244,22 @@ router.beforeEach(async (to, from, next) => {
 });
 
 router.beforeEach(async (to, from, next) => {
-  const routeRequiresCart = to.matched.some(record => record.meta.requiresCart);
+  const routeRequiresCart = to.matched.some(
+    record => record.meta.requiresCart,
+  );
   if (routeRequiresCart) {
     const hasCart = await apollo.defaultClient
-      .query({ query: gql`{ me { activeCart { id } } }` })
+      .query({
+        query: gql`
+          {
+            me {
+              activeCart {
+                id
+              }
+            }
+          }
+        `,
+      })
       .then(result => !!result.data.me.activeCart);
     if (!hasCart) next('/');
   }
