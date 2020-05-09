@@ -75,7 +75,7 @@ export default {
           && helper.state.query !== ''
         ) {
           helper.search();
-          component.$router.push({ path: 'products' });
+          component.$router.push({ path: 'products', params: { locale: 'en' } });
         } else {
           helper.search();
         }

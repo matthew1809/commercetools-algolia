@@ -6,7 +6,6 @@ import DetailsSection from '../DetailsSection/index.vue';
 import AddToCartForm from '../AddToCartForm/index.vue';
 import BasePrice from '../../common/BasePrice/index.vue';
 import VariantSelector from '../VariantSelector/index.vue';
-import { locale } from '../../common/shared';
 
 export default {
   props: {
@@ -35,7 +34,12 @@ export default {
   apollo: {
     product: {
       query: gql`
-        query Product($locale: Locale!, $sku: String!, $currency: Currency!, $country: Country!) {
+        query Product(
+          $locale: Locale!
+          $sku: String!
+          $currency: Currency!
+          $country: Country!
+        ) {
           product(sku: $sku) {
             id
             masterData {
@@ -43,13 +47,13 @@ export default {
                 name(locale: $locale)
                 slug(locale: $locale)
                 variant(sku: $sku) {
-                  price(currency: $currency,country:$country) {
+                  price(currency: $currency, country: $country) {
                     value {
                       ...printPrice
                     }
                     discounted {
                       value {
-                       ...printPrice
+                        ...printPrice
                       }
                     }
                   }
@@ -61,10 +65,11 @@ export default {
         fragment printPrice on BaseMoney {
           centAmount
           fractionDigits
-        }`,
+        }
+      `,
       variables() {
         return {
-          locale: locale(this),
+          locale: 'en',
           currency: this.$store.state.currency,
           sku: this.sku,
           country: this.$store.state.country,

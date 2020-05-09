@@ -10,11 +10,14 @@
           <div
             class="hits-image"
             style="background-image: url(item.image);"
+            @click="$click('clickedSku=item.sku')"
           ></div>
+
           <div class="hits-desc">
             <p>
               <span>{{ item.name }} </span>
             </p>
+            <p>{{ clickedSku }}</p>
             <p>{{ item.rating }}</p>
             <p>{{ item.price }}</p>
           </div>
@@ -41,6 +44,14 @@ export default {
       get() {
         return store.state.searchResults;
       },
+    },
+  },
+  methods: {
+    productRoute(productSlug, sku) {
+      return {
+        name: 'product',
+        params: { productSlug, sku },
+      };
     },
   },
 };
