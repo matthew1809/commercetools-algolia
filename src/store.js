@@ -12,6 +12,8 @@ const SET_AUTHENTICATED = 'SET_AUTHENTICATED';
 const SET_TOKEN_INFO = 'SET_TOKEN_INFO';
 const SET_MINI_CART_OPEN = 'SET_MINI_CART_OPEN';
 const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
+const SET_SHOULD_SHOW_SEARCH_RESULTS = 'SET_SHOULD_SHOW_SEARCH_RESULTS';
 
 const availableLocales = Object.keys(sunriseConfig.languages);
 const availableCountries = Object.keys(sunriseConfig.countries);
@@ -50,9 +52,17 @@ export default new Vuex.Store({
     miniCartOpen: false,
     miniCartCloseTimer: 0,
     searchResults: [],
+    searchQuery: '',
   },
 
   actions: {
+    setShouldShowSearchResults: ({ commit }, value) => {
+      commit(SET_SHOULD_SHOW_SEARCH_RESULTS, value);
+    },
+
+    setSearchQuery: ({ commit }, searchQuery) => {
+      commit(SET_SEARCH_QUERY, searchQuery);
+    },
     setSearchResults: ({ commit }, searchResults) => {
       commit(SET_SEARCH_RESULTS, searchResults);
     },
@@ -95,6 +105,14 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    [SET_SHOULD_SHOW_SEARCH_RESULTS](state, value) {
+      state.setShouldShowSearchResults = value;
+    },
+
+    [SET_SEARCH_QUERY](state, searchQuery) {
+      state.searchQuery = searchQuery;
+    },
+
     [SET_SEARCH_RESULTS](state, searchResults) {
       state.searchResults = searchResults;
     },

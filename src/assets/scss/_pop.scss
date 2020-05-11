@@ -3,6 +3,25 @@
 /* POP PAGE
 /*
 /*****************************************************************************/
+
+.results-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.refinement-container {
+  min-width: 200px;
+  padding-left: 40px;
+}
+
+.refinement-list {
+ margin-bottom: 30px;
+}
+
+.refinement-title {
+  font-family: "Source Sans Pro, sans-serif"
+}
+
 .pop-page {
   background: $spring-wood;
   position: relative;

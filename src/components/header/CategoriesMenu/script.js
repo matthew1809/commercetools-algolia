@@ -1,10 +1,14 @@
 import gql from 'graphql-tag';
 import { locale, isToughDevice } from '../../common/shared';
+import Search from '../../search/index.vue';
 
 const minus = require('@/assets/img/minus-1.png');
 const plus = require('@/assets/img/plus79.png');
 
 export default {
+  components: {
+    Search,
+  },
   props: {
     openMobile: {
       type: Boolean,
@@ -18,16 +22,19 @@ export default {
   }),
   methods: {
     mobileImage(level) {
-      return this.isMenuOpen(level)
-        ? minus
-        : plus;
+      return this.isMenuOpen(level) ? minus : plus;
     },
     isSale({ externalId }) {
       const categoriesConfig = this.$sunrise.categories;
-      return categoriesConfig ? externalId === categoriesConfig.salesExternalId : false;
+      return categoriesConfig
+        ? externalId === categoriesConfig.salesExternalId
+        : false;
     },
     isMenuOpen({ id }) {
-      return (isToughDevice() || !this.someCategoryWasClicked) && this.openCategoryMenu === id;
+      return (
+        (isToughDevice() || !this.someCategoryWasClicked)
+        && this.openCategoryMenu === id
+      );
     },
     hoverOnCategory({ id, children }) {
       if (isToughDevice()) {
@@ -46,9 +53,7 @@ export default {
       this.openCategoryMenu = false;
     },
     toggleOpenCategory({ id }) {
-      this.openCategoryMenu = id === this.openCategoryMenu
-        ? false
-        : id;
+      this.openCategoryMenu = id === this.openCategoryMenu ? false : id;
     },
     clickOnCategory() {
       this.someCategoryWasClicked = true;
@@ -60,13 +65,17 @@ export default {
     categories: {
       query: gql`
         query categories($locale: Locale!) {
-          categories(limit: 10, where: "parent is not defined", sort: "orderHint asc") {
+          categories(
+            limit: 10
+            where: "parent is not defined"
+            sort: "orderHint asc"
+          ) {
             results {
-            ...MenuCategoryInfo
-              children {
               ...MenuCategoryInfo
-                children {
+              children {
                 ...MenuCategoryInfo
+                children {
+                  ...MenuCategoryInfo
                 }
               }
             }
@@ -77,7 +86,8 @@ export default {
           externalId
           name(locale: $locale)
           slug(locale: $locale)
-        }`,
+        }
+      `,
       variables() {
         return {
           locale: locale(this),
