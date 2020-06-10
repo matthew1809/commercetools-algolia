@@ -13,20 +13,13 @@ export default {
   methods: {
     onChange(event) {
       store.dispatch('setSearchQuery', event.target.value);
+      store.dispatch('setShouldShowSearchResults', true);
+
       if (
-        (this.$router.currentRoute.name === 'home'
-          || this.$router.currentRoute.name === 'products')
-        && event.target.value === ''
-      ) {
-        store.dispatch('setShouldShowSearchResults', true);
-      } else if (
         this.$router.currentRoute.name === 'home'
         && event.target.value !== ''
       ) {
-        store.dispatch('setShouldShowSearchResults', true);
         this.$router.push({ path: 'products', params: { locale: 'en' } });
-      } else {
-        store.dispatch('setShouldShowSearchResults', true);
       }
     },
   },

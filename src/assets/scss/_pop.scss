@@ -7,19 +7,31 @@
 .results-container {
   display: flex;
   flex-direction: row;
+  padding-top: 20px;
 }
 
 .refinement-container {
   min-width: 200px;
   padding-left: 40px;
+  padding-right: 10px;
 }
 
 .refinement-list {
  margin-bottom: 30px;
 }
 
+.ais-RefinementList-labelText {
+  font-size: 1.7rem !important;
+}
+
+.ais-RefinementList-count {
+  font-size: 1.5rem !important;
+}
+
 .refinement-title {
-  font-family: "Source Sans Pro, sans-serif"
+  font-family: "Source Sans Pro, sans-serif";
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 .pop-page {

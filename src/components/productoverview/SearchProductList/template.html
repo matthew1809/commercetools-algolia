@@ -1,4 +1,4 @@
-<div class="results-container">
+<div class="container results-container">
   <ais-instant-search
   :search-client="searchClient"
   index-name="products"
@@ -9,12 +9,9 @@
 <ais-configure  v-else :query="searchQuery"/>
 
 <div class="results-container">
-<div class="refinement-container">
-  <h3 class="refinement-title">Color</h3>
-  <ais-refinement-list attribute="color" :limit="5" :searchable="true" class="refinement-list"/>
-  <h3>Style</h3>
-  <ais-refinement-list attribute="style" :limit="5" class="refinement-list"/>
-</div>
+  <div class="refinement-container">
+    <ais-refinement-list attribute="color" :limit="5" :searchable="false"/>
+  </div>
 <ais-hits>
 <div id="pop-product-list" class="row" slot-scope="{ items }" v-if="items.length > 0">
         <div v-for="item in items" :key="item.objectID" class="col-xs-12 col-sm-6 col-md-4">
